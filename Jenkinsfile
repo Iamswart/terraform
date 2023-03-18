@@ -53,8 +53,7 @@ pipeline {
             steps {
                 script {
                     dir('ingress-rule') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
+                        sh "kubectl apply -f ingress-rule.yaml"
                     }
                 }
             }
