@@ -27,11 +27,12 @@ pipeline {
             }
         }
 
-        stage("Create nginx-conroller") {
+        
+
+        stage("Create prometheus") {
             steps {
                 script {
-                    dir('nginx-controller') {
-                       sh "aws eks --region us-east-1 update-kubeconfig --name demo"
+                    dir('prometheus') {
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
                     }
@@ -39,10 +40,11 @@ pipeline {
             }
         }
 
-        stage("Create prometheus") {
+        stage("Create nginx-conroller") {
             steps {
                 script {
-                    dir('prometheus') {
+                    dir('nginx-controller') {
+                       sh "aws eks --region us-east-1 update-kubeconfig --name demo"
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
                     }
