@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     dir('nginx-controller') {
-                    //    sh "aws eks --region us-east-1 update-kubeconfig --name demo"
+                       sh "aws eks --region us-east-1 update-kubeconfig --name demo"
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
                     }
@@ -53,7 +53,8 @@ pipeline {
             steps {
                 script {
                     dir('ingress-rule') {
-                        sh "kubectl apply -f ingress-rule.yaml"
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
                     }
                 }
             }
