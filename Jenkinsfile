@@ -6,7 +6,28 @@ pipeline {
         AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
-        stage("Create nginx-controller") {
+
+        stage("Deploy voting-app to EKS") {
+            steps {
+                script {
+                    dir('voting-app') {
+                        sh "kubectl apply -f voting-app.yaml"
+                    }
+                }
+            }
+        }
+
+        stage("Deploy sock-shop to EKS") {
+            steps {
+                script {
+                    dir('sock-shop') {
+                        sh "kubectl apply -f complete-deployment.yaml"
+                    }
+                }
+            }
+        }
+
+        stage("Create nginx-conroller") {
             steps {
                 script {
                     dir('nginx-controller') {
@@ -29,25 +50,9 @@ pipeline {
             }
         }
 
-        stage("Deploy voting-app to EKS") {
-            steps {
-                script {
-                    dir('voting-app') {
-                        sh "kubectl apply -f voting-app.yaml"
-                    }
-                }
-            }
-        }
+        
 
-        stage("Deploy sock-shop to EKS") {
-            steps {
-                script {
-                    dir('sock-shop') {
-                        sh "kubectl apply -f complete-deployment.yaml"
-                    }
-                }
-            }
-        }
+        
 
         stage("Deploy ingress rule to EKS") {
             steps {
