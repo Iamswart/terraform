@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     dir('voting-app') {
-                        sh "kubectl apply -f vote.yaml"
+                        sh "kubectl apply -f voting-app.yaml"
                     }
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     dir('sock-shop') {
-                        sh "kubectl apply -f micro.yaml"
+                        sh "kubectl apply -f complete-deployment.yaml"
                     }
                 }
             }
